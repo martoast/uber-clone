@@ -12,10 +12,10 @@ import tw from "tailwind-react-native-classnames";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 
 const Map = () => {
-
   const origin = useSelector(originSelector);
   const destination = useSelector(destinationSelector);
   const mapRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
       if (!origin || ! destination) return;
@@ -25,6 +25,22 @@ const Map = () => {
         edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
       });
     }, [origin, destination]);
+
+    useEffect(() => {
+      const getTravelTime = async () => {
+        if (!origin || !destination) return;
+  
+        fetch(
+          `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin.description}&destinations=${destination.description}&key=${GOOGLE_MAPS_APIKEY}`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            dispatch(setTravelTimeInformation(data.rows[0].elements[0]));
+          });
+      };
+  
+      getTravelTime();
+    }, [origin, destination, GOOGLE_MAPS_APIKEY]);
 
   return (
     <MapView
