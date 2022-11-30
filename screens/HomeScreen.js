@@ -21,6 +21,10 @@ const HomeScreen = () => {
             <GooglePlacesAutocomplete
               placeholder="Where From?"
               styles={toInputBoxStyles}
+              textInputProps={{
+                placeholderTextColor: 'gray',
+                returnKeyType: "search"
+              }}
               fetchDetails={true}
               enablePoweredByContainer={false}
               returnKeyType={"search"}
@@ -59,6 +63,7 @@ const toInputBoxStyles = StyleSheet.create({
   },
   textInput: {
     backgroundColor: "#DDDDDF",
+    color: "black",
     borderRadius: 0,
     fontSize: 18,
   },

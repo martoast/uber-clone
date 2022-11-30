@@ -23,6 +23,10 @@ const NavigateCard = () => {
               <GooglePlacesAutocomplete
                 placeholder="Where to?"
                 styles={toInputBoxStyles}
+                textInputProps={{
+                  placeholderTextColor: 'gray',
+                  returnKeyType: "search"
+                }}
                 fetchDetails={true}
                 enablePoweredByContainer={false}
                 returnKeyType={"search"}
